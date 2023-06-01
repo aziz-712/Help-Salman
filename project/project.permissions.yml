@@ -1,0 +1,11 @@
+administer project:
+  title: 'Administer project settings'
+  restrict access: true
+delete project:
+  title: Delete project
+create project:
+  title: Create project
+view project:
+  title: View project
+edit project:
+  title: Edit project

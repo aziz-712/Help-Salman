@@ -1,0 +1,19 @@
+uuid: e74cab7c-bc76-4ed7-8a3c-04c4d22a7a84
+langcode: en
+status: true
+dependencies:
+  module:
+    - project
+id: project.field_previous_project
+field_name: field_previous_project
+entity_type: project
+type: entity_reference
+settings:
+  target_type: project
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

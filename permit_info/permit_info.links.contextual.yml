@@ -1,0 +1,10 @@
+entity.permit_info.edit_form:
+  route_name: entity.permit_info.edit_form
+  group: permit_info
+  title: Edit
+
+entity.permit_info.delete_form:
+  route_name: entity.permit_info.delete_form
+  group: permit_info
+  title: Delete
+  weight: 10

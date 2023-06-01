@@ -1,0 +1,22 @@
+entity.permit_info.settings:
+  title: 'Settings'
+  route_name: entity.permit_info.settings
+  base_route: entity.permit_info.settings
+entity.permit_info.view:
+  title: 'View'
+  route_name: entity.permit_info.canonical
+  base_route: entity.permit_info.canonical
+entity.permit_info.edit_form:
+  title: 'Edit'
+  route_name: entity.permit_info.edit_form
+  base_route: entity.permit_info.canonical
+entity.permit_info.delete_form:
+  title: 'Delete'
+  route_name: entity.permit_info.delete_form
+  base_route: entity.permit_info.canonical
+  weight: 10
+entity.permit_info.collection:
+  title: 'Permit Informations'
+  route_name: entity.permit_info.collection
+  base_route: system.admin_content
+  weight: 10

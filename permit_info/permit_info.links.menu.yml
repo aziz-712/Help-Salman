@@ -1,0 +1,10 @@
+entity.permit_info.settings:
+  title: 'Permit Information'
+  description: 'Configure a Permit Information entity type.'
+  route_name:  entity.permit_info.settings
+  parent: system.admin_structure
+entity.permit_info.collection:
+  title: 'Permit Informations'
+  description: 'List of permit informations.'
+  route_name: entity.permit_info.collection
+  parent: system.admin_content

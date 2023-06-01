@@ -1,0 +1,26 @@
+{
+  "name": "smhar/project",
+  "description": "Provides a project content type.",
+  "type": "drupal-custom-module",
+  "keywords": [
+    "Drupal",
+    "Content type"
+  ],
+  "homepage": "https://alrahma.org/later",
+  "authors": [
+    {
+      "name": "Salman Al Rahma (salman_rahma)",
+      "homepage": "https://www.drupal.org/u/salman_rahma",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Salman Al Rahma 2 (smhar)",
+      "homepage": "https://www.drupal.org/u/smhar",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://alrahma.org/later",
+    "source": "https://alrahma.org/later"
+  }
+}

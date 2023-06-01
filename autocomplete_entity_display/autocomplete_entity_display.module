@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for autocomplete_entity_display module.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function autocomplete_entity_display_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Check if project id field exists
+  if (isset($form['field_project_id'])) {
+  // Another option is to specify the actual forms
+  // if (in_array($form_id, ['node_article_form', 'node_article_edit_form'])) {
+    $form['#attached']['library'][] = 'autocomplete_entity_display/render_data';
+
+    if ($entity = $form['field_project_id']['widget']['target_id']['#default_value'][0]) {
+      $title = strip_tags($entity->field_project_title->value);
+      $form['field_project_id']['#suffix'] = "<div id='tag-project_information'>Title: $title</div>";
+  // How to add more informational fields?
+      $client = strip_tags($entity->field_individual_client->value);
+      $form['field_project_id']['#suffix'] = "<div id='tag-project_information'>Title: $client</div>";
+
+ //     $location = strip_tags($entity->field_land_information('location')->value);
+ //     $form['field_project_id']['#suffix'] = "<div id='tag-project_information'>Title: $location</div>";
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ *
+ * This hook implementation is cached. Changes require a cache rebuild.
+ */
+function autocomplete_entity_display_entity_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+  // Check if project id field exists
+  if (isset($build['field_project_id'])) {
+  // Another option is to specify the actual forms
+  // if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'article') {
+    $build['#attached']['library'][] = 'autocomplete_entity_display/render_data';
+
+    if ($entity = $build['field_project_id'][0]['#options']['entity']) {
+      $title = strip_tags($entity->field_project_title->value);
+      $build['field_project_id']['#suffix'] = "<div id='tag-project_information'>Title: $title</div>";
+
+
+
+    }
+  }
+}

@@ -1,0 +1,5 @@
+name: autocomplete_entity_display
+type: module
+description: Display data from loaded entity reference field.
+package: Custom
+core_version_requirement: ^8 || ^9 || ^10

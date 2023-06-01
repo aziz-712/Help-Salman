@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Provides a permit information entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\permit_info\Entity\PermitInfo;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function permit_info_theme() {
+  return [
+    'permit_info' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for permit information templates.
+ *
+ * Default template: permit-info.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the permit information information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_permit_info(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function permit_info_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish permit informations.
+      $storage = \Drupal::entityTypeManager()->getStorage('permit_info');
+      $permit_info_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($permit_info_ids) as $permit_info) {
+        $permit_info->set('status', FALSE);
+        $permit_info->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize permit informations.
+      $storage = \Drupal::entityTypeManager()->getStorage('permit_info');
+      $permit_info_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($permit_info_ids) as $permit_info) {
+        $permit_info->setOwnerId(0);
+        $permit_info->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function permit_info_user_predelete(UserInterface $account) {
+  // Delete permit informations.
+  $storage = \Drupal::entityTypeManager()->getStorage('permit_info');
+  $permit_info_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $permit_infos = $storage->loadMultiple($permit_info_ids);
+  $storage->delete($permit_infos);
+  // Delete old revisions.
+  $permit_info_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->execute();
+  foreach (array_keys($permit_info_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}

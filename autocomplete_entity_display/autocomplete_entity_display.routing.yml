@@ -1,0 +1,6 @@
+autocomplete_entity_display.ajax_response:
+  path: '/autocomplete-entity-display/{entity_type}/{entity_id}'
+  defaults:
+    _controller: '\Drupal\autocomplete_entity_display\Controller\AutocompleteEntityDisplayController::dataAjaxResponse'
+  requirements:
+    _permission: 'access content'

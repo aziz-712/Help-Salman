@@ -1,0 +1,20 @@
+uuid: ab5a4851-a5bc-472b-9416-8c25111468ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - permit_info
+    - project
+id: permit_info.field_project_id
+field_name: field_project_id
+entity_type: permit_info
+type: entity_reference
+settings:
+  target_type: project
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

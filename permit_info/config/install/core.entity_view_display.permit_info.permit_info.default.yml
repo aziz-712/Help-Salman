@@ -1,0 +1,26 @@
+uuid: ee409890-bc6d-4fd4-ae34-699c872f98ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.permit_info.permit_info.field_project_id
+  module:
+    - permit_info
+id: permit_info.permit_info.default
+targetEntityType: permit_info
+bundle: permit_info
+mode: default
+content:
+  field_project_id:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  description: true
+  status: true
+  uid: true

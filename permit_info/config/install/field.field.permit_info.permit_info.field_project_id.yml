@@ -1,0 +1,27 @@
+uuid: 275a82f0-9b34-4faa-a41d-db5b8191fed9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.permit_info.field_project_id
+  module:
+    - permit_info
+id: permit_info.permit_info.field_project_id
+field_name: field_project_id
+entity_type: permit_info
+bundle: permit_info
+label: 'Project ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:project'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,7 @@
+entity.permit_info.settings:
+  path: 'admin/structure/permit-info'
+  defaults:
+    _form: '\Drupal\permit_info\Form\PermitInfoSettingsForm'
+    _title: 'Permit Information'
+  requirements:
+    _permission: 'administer permit information'

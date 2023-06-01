@@ -1,0 +1,27 @@
+uuid: a8f0bc2c-e1fb-4f80-a6b5-6ebf88a8962a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.project.field_related_projects
+  module:
+    - project
+id: project.project.field_related_projects
+field_name: field_related_projects
+entity_type: project
+bundle: project
+label: 'Related Projects'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:project'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

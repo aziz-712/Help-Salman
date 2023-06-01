@@ -1,0 +1,11 @@
+administer permit information:
+  title: 'Administer permit information settings'
+  restrict access: true
+delete permit information:
+  title: Delete permit information
+create permit information:
+  title: Create permit information
+view permit information:
+  title: View permit information
+edit permit information:
+  title: Edit permit information

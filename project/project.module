@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Provides a project entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\project\Entity\Project;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function project_theme() {
+  return [
+    'project' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for project templates.
+ *
+ * Default template: project.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the project information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_project(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function project_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish projects.
+      $storage = \Drupal::entityTypeManager()->getStorage('project');
+      $project_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($project_ids) as $project) {
+        $project->set('status', FALSE);
+        $project->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize projects.
+      $storage = \Drupal::entityTypeManager()->getStorage('project');
+      $project_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($project_ids) as $project) {
+        $project->setOwnerId(0);
+        $project->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function project_user_predelete(UserInterface $account) {
+  // Delete projects.
+  $storage = \Drupal::entityTypeManager()->getStorage('project');
+  $project_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $projects = $storage->loadMultiple($project_ids);
+  $storage->delete($projects);
+  // Delete old revisions.
+  $project_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->execute();
+  foreach (array_keys($project_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}

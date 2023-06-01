@@ -1,0 +1,52 @@
+uuid: c98930b5-2146-4e44-a286-209edd712807
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.project.project.field_previous_project
+    - field.field.project.project.field_project_title
+    - field.field.project.project.field_related_projects
+  module:
+    - project
+id: project.project.default
+targetEntityType: project
+bundle: project
+mode: default
+content:
+  field_previous_project:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_project_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_related_projects:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  label:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  description: true
+  status: true
+  uid: true

@@ -1,0 +1,5 @@
+permit_info.add_form:
+  title: 'Add permit information'
+  route_name: entity.permit_info.add_form
+  appears_on:
+    - entity.permit_info.collection
